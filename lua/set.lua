@@ -22,6 +22,7 @@ vim.api.nvim_set_keymap('n', '<leader>gg', ':LazyGit<CR>', {noremap = true, sile
 vim.api.nvim_set_keymap('n', '<leader>wv', ':vsp<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>wh', ':sp<CR>', {noremap = true, silent = true})
 vim.api.nvim_set_keymap('n', '<leader>Sf', ':Telescope session-lens search_session<CR>', {noremap = true, silent = true})
+vim.api.nvim_set_keymap('n', '<leader>o', ':NvimTreeToggle<CR>', {noremap = true, silent = true})
 vim.opt.expandtab = true
 vim.opt.wrap = false
 vim.opt.swapfile = false
