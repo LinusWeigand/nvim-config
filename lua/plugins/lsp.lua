@@ -1,3 +1,10 @@
+-- Disable or customize diagnostic signs
+vim.fn.sign_define("DiagnosticSignError", { text = "", numhl = "" })
+vim.fn.sign_define("DiagnosticSignWarn", { text = "", numhl = "" })
+vim.fn.sign_define("DiagnosticSignHint", { text = "", numhl = "" })
+vim.fn.sign_define("DiagnosticSignInfo", { text = "", numhl = "" })
+
+-- Continue with your existing LSP config
 return {
   {
     "williamboman/mason.nvim",
@@ -19,41 +26,41 @@ return {
     config = function()
       local capabilities = require("cmp_nvim_lsp").default_capabilities()
       local lspconfig = require("lspconfig")
-      lspconfig.lua_ls.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.tsserver.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.rust_analyzer.setup({
-        capabilities = capabilities,
-      })
-      lspconfig.gopls.setup({
+
+      -- Custom handler to filter out warnings and hints
+      vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+        vim.lsp.diagnostic.on_publish_diagnostics, {
+          underline = true,
+          virtual_text = {
+            spacing = 4,
+            severity_limit = "Error", -- Only display errors, no warnings or hints
+          },
+          update_in_insert = false,
+        }
+      )
+      lspconfig.ts_ls.setup({
         capabilities = capabilities,
       })
 
-      lspconfig.pylsp.setup({
+      lspconfig.gopls.setup({
+        capabilities = capabilities,
+      })
+      lspconfig.clangd.setup({
+        capabilities = capabilities,
+      })
+      lspconfig.cssls.setup({
+        capabilities = capabilities,
+      })
+
+      lspconfig.rust_analyzer.setup({
         capabilities = capabilities,
         settings = {
-          pylsp = {
-            plugins = {
-              pycodestyle = {
-                ignore = {'W', 'E'},
-                maxLineLength = 120
-              },
-              pyflakes = {
-                enabled = false
-              },
-              flake8 = {
-                enabled = false,
-                ignore = {'W'}
-              },
-              mccabe = {
-                enabled = false
-              }
-            }
-          }
-        }
+          ["rust-analyzer"] = {
+            diagnostics = {
+              enable = false, -- Disable all diagnostics from rust-analyzer
+            },
+          },
+        },
       })
 
       vim.keymap.set("n", "K", vim.lsp.buf.hover, {})
@@ -62,3 +69,4 @@ return {
     end,
   },
 }
+

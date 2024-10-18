@@ -5,6 +5,12 @@ return {
   -- {
   --   "github/copilot.vim"
   -- },
+  {
+    "windwp/nvim-autopairs", -- Add this plugin
+    config = function()
+      require("nvim-autopairs").setup({})
+    end
+  },
 	{
 		"L3MON4D3/LuaSnip",
 		dependencies = {
