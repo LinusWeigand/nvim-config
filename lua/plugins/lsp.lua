@@ -33,7 +33,9 @@ return {
           underline = true,
           virtual_text = {
             spacing = 4,
-            min = vim.diagnostic.severity.ERROR,
+            severity= {
+              min = vim.diagnostic.severity.ERROR,
+            }
           },
           update_in_insert = false,
         }
