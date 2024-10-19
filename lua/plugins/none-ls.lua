@@ -29,6 +29,7 @@ return {
             group = vim.api.nvim_create_augroup("LspFormatting", { clear = true }),
             buffer = bufnr,
             callback = function()
+              print("Formatting triggered!") -- Add this inside the callback function
               vim.lsp.buf.format({ bufnr = bufnr })  -- Update this to use `vim.lsp.buf.format()`
             end,
           })

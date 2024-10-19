@@ -33,7 +33,7 @@ return {
           underline = true,
           virtual_text = {
             spacing = 4,
-            severity_limit = "Error", -- Only display errors, no warnings or hints
+            min = vim.diagnostic.severity.ERROR,
           },
           update_in_insert = false,
         }
@@ -59,6 +59,9 @@ return {
             diagnostics = {
               enable = false, -- Disable all diagnostics from rust-analyzer
             },
+        formatting = {
+        enable = false, -- Disable rust-analyzer's formatting if using rustfmt from null-ls
+      }
           },
         },
       })
