@@ -34,6 +34,7 @@ return {
           })
         end
       end,
+
     })
 
     -- Set a keybinding for manual formatting
